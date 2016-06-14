@@ -12,4 +12,6 @@ int main()
 
     std::cout << fancy_style << "Hello " 
               << basic_style << "World!" << std::endl;
+
+    return 0;
 }
