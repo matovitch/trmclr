@@ -29,13 +29,6 @@ enum StyleTypes
 
 static const uint32_t STYLE_SHIFT =  std::numeric_limits<uint32_t>::digits / N_STYLE_TYPES;
 
-std::string uint32toString(uint32_t value)
-{
-    std::ostringstream oss;
-    oss << value;
-    return oss.str();
-}
-
 struct Foreground : Style
 {
     static const uint32_t SHIFT = STYLE_SHIFT * FOREGROUND;
