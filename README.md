@@ -1,5 +1,5 @@
 # trmclr
-A 130 lines header for coloring your terminal outputs
+A [130 lines header](https://github.com/matovitch/trmclr/blob/master/trmclr.hpp) for coloring your terminal outputs
 
 ## Example
 
