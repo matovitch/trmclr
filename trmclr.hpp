@@ -1,5 +1,5 @@
-#ifndef __TRMCLR__H__
-#define __TRMCLR__H__
+#ifndef __TRMCLR_H__
+#define __TRMCLR_H__
 
 #include <cstdint>
 #include <ostream>
@@ -129,4 +129,4 @@ std::ostream& operator<< (std::ostream& os, const Style& style)
 
 } // end trmclr namespace
 
-#endif // end __TRMCLR__H__
+#endif // end __TRMCLR_H__
