@@ -111,19 +111,20 @@ struct Attribute : Style
 std::ostream& operator<< (std::ostream& os, const Style& style)
 {
     const uint32_t divisor = 1 << STYLE_SHIFT;
-    uint32_t dividend = style._value / divisor;
-    uint32_t leftover = style._value % divisor;
+          uint32_t divided = style;
+          uint32_t modulus = style % divisor;
     
-    os << "\e[" << (leftover ? leftover : Foreground::DEFAULT);
+    os << "\e[" << (modulus ? modulus : Foreground::DEFAULT);
 
-    leftover = dividend % divisor;
-    dividend /= divisor;
+    divided = divided / divisor;
+    modulus = divided % divisor;
 
-    Attribute::toStream(os, leftover);
+    Attribute::toStream(os, modulus);
 
-    leftover = dividend % divisor;
+    divided = divided / divisor;
+    modulus = divided % divisor;
 
-    os << ";" << (leftover ? leftover : Background::DEFAULT) << "m";
+    os << ";" << (modulus ? modulus : Background::DEFAULT) << "m";
 
     return os;
 }
