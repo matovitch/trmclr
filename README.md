@@ -21,4 +21,9 @@ int main()
 
     return 0;
 }
+
+/*
+Note you can also do things like: 
+auto bold = [](trmclr::Style style) { return trmclr::Style(style | trmclr::Attribute::BOLD); };
+*/
 ```
