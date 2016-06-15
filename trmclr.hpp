@@ -110,18 +110,18 @@ struct Attribute : Style
 
 std::ostream& operator<< (std::ostream& os, const Style& style)
 {
-    const uint32_t quotient = (1 << STYLE_SHIFT);
-    uint32_t dividend = style._value / quotient;
-    uint32_t leftover = style._value % quotient;
+    const uint32_t divisor = 1 << STYLE_SHIFT;
+    uint32_t dividend = style._value / divisor;
+    uint32_t leftover = style._value % divisor;
     
     os << "\e[" << (leftover ? leftover : Foreground::DEFAULT);
 
-    leftover = dividend % quotient;
-    dividend /= quotient;
+    leftover = dividend % divisor;
+    dividend /= divisor;
 
     Attribute::toStream(os, leftover);
 
-    leftover = dividend % quotient;
+    leftover = dividend % divisor;
 
     os << ";" << (leftover ? leftover : Background::DEFAULT) << "m";
 

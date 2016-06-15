@@ -9,15 +9,15 @@ A [130 lines header](https://github.com/matovitch/trmclr/blob/master/trmclr.hpp)
 
 int main()
 {
-    trmclr::Style fancy_style(trmclr::Background::LIGHT_BLUE    |
-                              trmclr::Foreground::WHITE         |
-                              trmclr::Attribute::UNDERLINED     |
-                              trmclr::Attribute::BOLD);
+    trmclr::Style fancyStyle(trmclr::Background::LIGHT_BLUE    |
+                             trmclr::Foreground::WHITE         |
+                             trmclr::Attribute::UNDERLINED     |
+                             trmclr::Attribute::BOLD);
 
-    trmclr::Style basic_style(trmclr::Attribute::DEFAULT);
+    trmclr::Style basicStyle(trmclr::Attribute::DEFAULT);
 
-    std::cout << fancy_style << "Hello " 
-              << basic_style << "World!" << std::endl;
+    std::cout << fancyStyle << "Hello " 
+              << basicStyle << "World!" << std::endl;
 
     return 0;
 }
