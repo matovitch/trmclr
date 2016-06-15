@@ -107,24 +107,22 @@ struct Attribute : Style
 
 std::ostream& operator<< (std::ostream& os, const Style& style)
 {
-    os << "\e[";
-
     uint32_t quotient = (1 << STYLE_SHIFT);
-    uint32_t remainer = style._value % quotient;
     uint32_t dividend = style._value / quotient;
+    uint32_t leftover = style._value % quotient;
     
-    os << remainer;
+    os << "\e[" << leftover;
 
-    remainer = dividend % quotient;
+    leftover = dividend % quotient;
     dividend /= quotient;
 
-    Attribute::toStream(os, remainer);
+    Attribute::toStream(os, leftover);
 
-    remainer = dividend % quotient;
+    leftover = dividend % quotient;
 
-    os << ";" << remainer;
+    os << ";" << leftover << "m";
 
-    return os << "m";
+    return os;
 }
 
 } // end trmclr namespace
