@@ -14,7 +14,7 @@ struct Style
 {
     Style(uint32_t value) : _value(value) {}
 
-    operator uint32_t() { return _value; }
+    operator uint32_t() const { return _value; }
 
     uint32_t _value;
 };
@@ -110,7 +110,7 @@ struct Attribute : Style
 
 std::ostream& operator<< (std::ostream& os, const Style& style)
 {
-    uint32_t quotient = (1 << STYLE_SHIFT);
+    const uint32_t quotient = (1 << STYLE_SHIFT);
     uint32_t dividend = style._value / quotient;
     uint32_t leftover = style._value % quotient;
     
