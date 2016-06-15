@@ -100,7 +100,10 @@ struct Attribute : Style
     {
         for (unsigned i = 0; attribute != 0; attribute >>= 1, i++)
         {
-            (attribute & 1) ? os << ";" << i : os;
+            if (attribute & 1) 
+            { 
+                os << ";" << i;
+            }
         }
     }
 };
@@ -111,7 +114,7 @@ std::ostream& operator<< (std::ostream& os, const Style& style)
     uint32_t dividend = style._value / quotient;
     uint32_t leftover = style._value % quotient;
     
-    os << "\e[" << leftover;
+    os << "\e[" << (leftover ? leftover : Foreground::DEFAULT);
 
     leftover = dividend % quotient;
     dividend /= quotient;
@@ -120,7 +123,7 @@ std::ostream& operator<< (std::ostream& os, const Style& style)
 
     leftover = dividend % quotient;
 
-    os << ";" << leftover << "m";
+    os << ";" << (leftover ? leftover : Background::DEFAULT) << "m";
 
     return os;
 }
