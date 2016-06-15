@@ -29,7 +29,23 @@ enum StyleTypes
 
 static const uint32_t STYLE_SHIFT =  std::numeric_limits<uint32_t>::digits / N_STYLE_TYPES;
 
-struct Foreground : Style
+struct Attribute
+{
+    static const uint32_t SHIFT = STYLE_SHIFT * ATTRIBUTE;
+
+    enum
+    {
+        DEFAULT     = 0b1           << SHIFT,
+        BOLD        = 0b10          << SHIFT,
+        DIM         = 0b100         << SHIFT,
+        UNDERLINED  = 0b10000       << SHIFT,
+        BLINK       = 0b100000      << SHIFT,
+        REVERSE     = 0b10000000    << SHIFT,
+        HIDDEN      = 0b100000000   << SHIFT
+    };
+};
+
+struct Foreground
 {
     static const uint32_t SHIFT = STYLE_SHIFT * FOREGROUND;
 
@@ -55,7 +71,7 @@ struct Foreground : Style
     };
 };
 
-struct Background : Style
+struct Background
 {
     static const uint32_t SHIFT = STYLE_SHIFT * BACKGROUND;
 
@@ -81,45 +97,23 @@ struct Background : Style
     };
 };
 
-struct Attribute : Style
-{
-    static const uint32_t SHIFT = STYLE_SHIFT * ATTRIBUTE;
-
-    enum 
-    {
-        DEFAULT     = 0b1           << SHIFT,
-        BOLD        = 0b10          << SHIFT,
-        DIM         = 0b100         << SHIFT,
-        UNDERLINED  = 0b10000       << SHIFT,
-        BLINK       = 0b100000      << SHIFT,
-        REVERSE     = 0b10000000    << SHIFT,
-        HIDDEN      = 0b100000000   << SHIFT
-    };
-
-    static void toStream(std::ostream& os, uint32_t attribute)
-    {
-        for (unsigned i = 0; attribute != 0; attribute >>= 1, i++)
-        {
-            if (attribute & 1) 
-            { 
-                os << ";" << i;
-            }
-        }
-    }
-};
-
 std::ostream& operator<< (std::ostream& os, const Style& style)
 {
     const uint32_t divisor = 1 << STYLE_SHIFT;
-          uint32_t divided = style;
+          uint32_t divided = style / divisor;
           uint32_t modulus = style % divisor;
     
     os << "\e[" << (modulus ? modulus : Foreground::DEFAULT);
 
-    divided = divided / divisor;
     modulus = divided % divisor;
 
-    Attribute::toStream(os, modulus);
+    for (unsigned i = 0; modulus != 0; modulus >>= 1, i++)
+    {
+        if (modulus & 1)
+        {
+            os << ";" << i;
+        }
+    }
 
     divided = divided / divisor;
     modulus = divided % divisor;
