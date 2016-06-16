@@ -99,26 +99,26 @@ struct Background
 
 std::ostream& operator<< (std::ostream& os, const Style& style)
 {
-    const uint32_t divisor = 1 << STYLE_SHIFT;
-          uint32_t divided = style / divisor;
-          uint32_t modulus = style % divisor;
+    const uint32_t base = 1 << STYLE_SHIFT;
+          uint32_t encoded = style / base;
+          uint32_t decoded = style % base;
     
-    os << "\e[" << (modulus ? modulus : Foreground::DEFAULT);
+    os << "\e[" << (decoded ? decoded : Foreground::DEFAULT);
 
-    modulus = divided % divisor;
+    decoded = encoded % base;
 
-    for (unsigned i = 0; modulus != 0; modulus >>= 1, i++)
+    for (uint32_t i = 0; decoded != 0; decoded >>= 1, i++)
     {
-        if (modulus & 1)
+        if (decoded & 1)
         {
             os << ";" << i;
         }
     }
 
-    divided = divided / divisor;
-    modulus = divided % divisor;
+    encoded = encoded / base;
+    decoded = encoded % base;
 
-    os << ";" << (modulus ? modulus : Background::DEFAULT) << "m";
+    os << ";" << (decoded ? decoded : Background::DEFAULT) << "m";
 
     return os;
 }
