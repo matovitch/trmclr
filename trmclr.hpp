@@ -35,13 +35,13 @@ struct Attribute
 
     enum
     {
-        DEFAULT    = 0x01 << SHIFT,
-        BOLD       = 0x02 << SHIFT,
-        DIM        = 0x04 << SHIFT,
-        UNDERLINED = 0x08 << SHIFT,
-        BLINK      = 0x10 << SHIFT,
-        REVERSE    = 0x20 << SHIFT,
-        HIDDEN     = 0x40 << SHIFT
+        DEFAULT     = 0x001 << SHIFT,
+        BOLD        = 0x002 << SHIFT,
+        DIM         = 0x004 << SHIFT,
+        UNDERLINED  = 0x010 << SHIFT,
+        BLINK       = 0x020 << SHIFT,
+        REVERSE     = 0x080 << SHIFT,
+        HIDDEN      = 0x100 << SHIFT
     };
 };
 
