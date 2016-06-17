@@ -35,13 +35,13 @@ struct Attribute
 
     enum
     {
-        DEFAULT     = 0b1           << SHIFT,
-        BOLD        = 0b10          << SHIFT,
-        DIM         = 0b100         << SHIFT,
-        UNDERLINED  = 0b10000       << SHIFT,
-        BLINK       = 0b100000      << SHIFT,
-        REVERSE     = 0b10000000    << SHIFT,
-        HIDDEN      = 0b100000000   << SHIFT
+        DEFAULT     = 0x001 << SHIFT,
+        BOLD        = 0x002 << SHIFT,
+        DIM         = 0x004 << SHIFT,
+        UNDERLINED  = 0x010 << SHIFT,
+        BLINK       = 0x020 << SHIFT,
+        REVERSE     = 0x080 << SHIFT,
+        HIDDEN      = 0x100 << SHIFT
     };
 };
 
@@ -103,7 +103,7 @@ std::ostream& operator<< (std::ostream& os, const Style& style)
           uint32_t encoded = style / base;
           uint32_t decoded = style % base;
     
-    os << "\e[" << (decoded ? decoded : Foreground::DEFAULT);
+    os << "\x1B[" << (decoded ? decoded : Foreground::DEFAULT);
 
     decoded = encoded % base;
 
