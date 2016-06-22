@@ -103,7 +103,7 @@ std::ostream& operator<< (std::ostream& os, const Style& style)
           uint32_t encoded = style / base;
           uint32_t decoded = style % base;
     
-    os << "\x1B[" << (decoded ? decoded : Foreground::DEFAULT);
+    os << "\x1B[" << (decoded ? decoded : Foreground::DEFAULT >> Foreground::SHIFT);
 
     decoded = encoded % base;
 
@@ -118,7 +118,7 @@ std::ostream& operator<< (std::ostream& os, const Style& style)
     encoded = encoded / base;
     decoded = encoded % base;
 
-    os << ";" << (decoded ? decoded : Background::DEFAULT) << "m";
+    os << ";" << (decoded ? decoded : Background::DEFAULT >> Background::SHIFT) << "m";
 
     return os;
 }
